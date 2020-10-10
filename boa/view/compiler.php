@@ -48,12 +48,7 @@ class compiler{
 				$session = 'boa::session();';
 			}
 		}
-		$this->html = '<?php
-/*
-Author  : poetbi (poetbi@163.com)
-Document: http://boasoft.top/doc/#api/boa.view.compiler.html
-Licenses: Apache-2.0 (http://apache.org/licenses/LICENSE-2.0)
-*/ use \\boa\\boa;'. $session .' ?>'. $this->html;
+		$this->html = '<?php use \\boa\\boa;'. $session .' ?>'. $this->html;
 	}
 
 	private function prepare(){
@@ -146,12 +141,7 @@ Licenses: Apache-2.0 (http://apache.org/licenses/LICENSE-2.0)
 	private function cb_var($m){
 		$str = '$'. $this->arr_format($m[1]);
 		if($this->res == 1){
-			$str = "<?php
-/*
-Author  : poetbi (poetbi@163.com)
-Document: http://boasoft.top/doc/#api/boa.view.compiler.html
-Licenses: Apache-2.0 (http://apache.org/licenses/LICENSE-2.0)
-*/ echo $str; ?>";
+			$str = "<?php echo $str; ?>";
 		}
 		return $str;
 	}
@@ -166,12 +156,7 @@ Licenses: Apache-2.0 (http://apache.org/licenses/LICENSE-2.0)
 			return '{'. $m[1] .'}';
 		}
 		if($this->res == 1){
-			$str = "<?php
-/*
-Author  : poetbi (poetbi@163.com)
-Document: http://boasoft.top/doc/#api/boa.view.compiler.html
-Licenses: Apache-2.0 (http://apache.org/licenses/LICENSE-2.0)
-*/ echo $str; ?>";
+			$str = "<?php echo $str; ?>";
 		}
 		return $str;
 	}
@@ -185,12 +170,7 @@ Licenses: Apache-2.0 (http://apache.org/licenses/LICENSE-2.0)
 		}
 		$str .= ")";
 		if($this->res == 1){
-			$str = "<?php
-/*
-Author  : poetbi (poetbi@163.com)
-Document: http://boasoft.top/doc/#api/boa.view.compiler.html
-Licenses: Apache-2.0 (http://apache.org/licenses/LICENSE-2.0)
-*/ echo $str; ?>";
+			$str = "<?php echo $str; ?>";
 		}
 		return $str;
 	}
@@ -199,12 +179,7 @@ Licenses: Apache-2.0 (http://apache.org/licenses/LICENSE-2.0)
 		$str = $this->cb_sub_if($m[1]);
 		$str = "if($str){";
 		if($this->res == 1){
-			$str = "<?php
-/*
-Author  : poetbi (poetbi@163.com)
-Document: http://boasoft.top/doc/#api/boa.view.compiler.html
-Licenses: Apache-2.0 (http://apache.org/licenses/LICENSE-2.0)
-*/ $str ?>";
+			$str = "<?php $str ?>";
 		}
 		return $str;
 	}
@@ -213,12 +188,7 @@ Licenses: Apache-2.0 (http://apache.org/licenses/LICENSE-2.0)
 		$str = $this->cb_sub_if($m[1]);
 		$str = "}else if($str){";
 		if($this->res == 1){
-			$str = "<?php
-/*
-Author  : poetbi (poetbi@163.com)
-Document: http://boasoft.top/doc/#api/boa.view.compiler.html
-Licenses: Apache-2.0 (http://apache.org/licenses/LICENSE-2.0)
-*/ $str ?>";
+			$str = "<?php $str ?>";
 		}
 		return $str;
 	}
@@ -259,12 +229,7 @@ Licenses: Apache-2.0 (http://apache.org/licenses/LICENSE-2.0)
 		}
 		$str = "foreach($a as $b$c){";
 		if($this->res == 1){
-			$str = "<?php
-/*
-Author  : poetbi (poetbi@163.com)
-Document: http://boasoft.top/doc/#api/boa.view.compiler.html
-Licenses: Apache-2.0 (http://apache.org/licenses/LICENSE-2.0)
-*/ $str ?>";
+			$str = "<?php $str ?>";
 		}
 		return $str;
 	}
@@ -289,12 +254,7 @@ Licenses: Apache-2.0 (http://apache.org/licenses/LICENSE-2.0)
 		}
 		$str = "$fun(". implode(', ', $args) .")";
 		if($this->res == 1){
-			$str = "<?php
-/*
-Author  : poetbi (poetbi@163.com)
-Document: http://boasoft.top/doc/#api/boa.view.compiler.html
-Licenses: Apache-2.0 (http://apache.org/licenses/LICENSE-2.0)
-*/ echo $str ?>";
+			$str = "<?php echo $str ?>";
 		}
 		return $str;
 	}
@@ -320,12 +280,7 @@ Licenses: Apache-2.0 (http://apache.org/licenses/LICENSE-2.0)
 		}
 		$args = ltrim($args, ', ');
 
-		$str = "<?php
-/*
-Author  : poetbi (poetbi@163.com)
-Document: http://boasoft.top/doc/#api/boa.view.compiler.html
-Licenses: Apache-2.0 (http://apache.org/licenses/LICENSE-2.0)
-*/ \$$key = boa::model('$mod.$model')->$method($args); ?>";
+		$str = "<?php \$$key = boa::model('$mod.$model')->$method($args); ?>";
 		return $str;
 	}
 
@@ -384,25 +339,10 @@ Licenses: Apache-2.0 (http://apache.org/licenses/LICENSE-2.0)
 		$arr['LANG'] = ['/'. $this->symbol_s .'@\s*([^\{\}]+?)'. $this->symbol_e .'/', '', [$this, 'cb_lang']];
 		$arr['IF']   = ['/'. $this->symbol_s .'if\s+([^\{\}]+?)'. $this->symbol_e .'/', '', [$this, 'cb_if']];
 		$arr['ELIF'] = ['/'. $this->symbol_s .'else\s*if\s+([^\{\}]+?)'. $this->symbol_e .'/', '', [$this, 'cb_elseif']];
-		$arr['ELSE'] = ['/'. $this->symbol_s .'else'. $this->symbol_e .'/', '<?php
-/*
-Author  : poetbi (poetbi@163.com)
-Document: http://boasoft.top/doc/#api/boa.view.compiler.html
-Licenses: Apache-2.0 (http://apache.org/licenses/LICENSE-2.0)
-*/ }else{ ?>', '}else{'];
-		$arr['-IF']  = ['/'. $this->symbol_s .'\/if'. $this->symbol_e .'/', '<?php
-/*
-Author  : poetbi (poetbi@163.com)
-Document: http://boasoft.top/doc/#api/boa.view.compiler.html
-Licenses: Apache-2.0 (http://apache.org/licenses/LICENSE-2.0)
-*/ } ?>', '}'];
+		$arr['ELSE'] = ['/'. $this->symbol_s .'else'. $this->symbol_e .'/', '<?php }else{ ?>', '}else{'];
+		$arr['-IF']  = ['/'. $this->symbol_s .'\/if'. $this->symbol_e .'/', '<?php } ?>', '}'];
 		$arr['LIST'] = ['/'. $this->symbol_s .'list\s+([^\{\}]+?)'. $this->symbol_e .'/', '', [$this, 'cb_list']];
-		$arr['-LIST']= ['/'. $this->symbol_s .'\/list'. $this->symbol_e .'/', '<?php
-/*
-Author  : poetbi (poetbi@163.com)
-Document: http://boasoft.top/doc/#api/boa.view.compiler.html
-Licenses: Apache-2.0 (http://apache.org/licenses/LICENSE-2.0)
-*/ } ?>', '}'];
+		$arr['-LIST']= ['/'. $this->symbol_s .'\/list'. $this->symbol_e .'/', '<?php } ?>', '}'];
 		$arr['BOA']  = ['/'. $this->symbol_s .'\$(\w+)\s+([^\{\}]+?)'. $this->symbol_e .'/', '', [$this, 'cb_boa']];
 		$arr['FUN']  = ['/'. $this->symbol_s .'((?!'. $exclude .')\w+(?!\s*:))(\s+[^\{\}]+?)?'. $this->symbol_e .'/', '', [$this, 'cb_fun']]; //excludes template tags and javascript object
 		$this->tags = $arr;

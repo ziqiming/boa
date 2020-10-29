@@ -7,7 +7,7 @@ boa是一款免费开源、灵活易用的配置式PHP框架，MVC设计模式�
 
 命令行下切换至www目录执行：php boa -b
 
-浏览器下直接访问：http://localhost
+或者浏览器中直接访问：http://localhost
 
 【帮助】
 

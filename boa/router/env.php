@@ -36,12 +36,12 @@ class env{
 
 			case 1:
 				$arr['path'] = substr($_SERVER['PATH_INFO'], 1);
-				$arr['path'] = preg_replace('/\?(.+*)$/', '', $arr['path']);
+				$arr['path'] = preg_replace('/\?(.+?)$/', '', $arr['path']);
 				break;
 
 			case 2:
 				$arr['path'] = substr($_SERVER['REQUEST_URI'], 1);
-				$arr['path'] = preg_replace('/\?(.+*)$/', '', $arr['path']);
+				$arr['path'] = preg_replace('/\?(.+?)$/', '', $arr['path']);
 				break;
 		}
 		$this->request = $arr;

@@ -2,7 +2,7 @@
 /*
 Author  : poetbi (poetbi@163.com)
 Document: http://boasoft.top/doc/#api/boa.router.env.html
-Licenses: Apache-2.0 (http://apache.org/licenses/LICENSE-2.0)
+License : Apache-2.0 (http://apache.org/licenses/LICENSE-2.0)
 */
 namespace boa\router;
 
@@ -36,23 +36,24 @@ class env{
 
 			case 1:
 				$arr['path'] = substr($_SERVER['PATH_INFO'], 1);
-				$arr['path'] = preg_replace('/\?(.+?)$/', '', $arr['path']);
 				break;
 
 			case 2:
 				$arr['path'] = substr($_SERVER['REQUEST_URI'], 1);
-				$arr['path'] = preg_replace('/\?(.+?)$/', '', $arr['path']);
 				break;
 		}
+		$arr['path'] = preg_replace('/\?(.+?)$/', '', $arr['path']);
 		$this->request = $arr;
 	}
 
 	public function get(){
-		if(!$this->request['path'] || $this->request['path'] == '/'){
-			return [];
+		if(!$_SERVER['QUERY_STRING']){
+			if($this->request['path'] == '' || $this->request['path'] == 'index.php'){
+				return [];
+			}
 		}
 
-		if($this->cfg['enable']){
+		if($this->cfg['enable'] && $this->request['path']){
 			foreach($this->router as $group => $rules){
 				$arr = parse_url($group);
 				$host_vars = [];

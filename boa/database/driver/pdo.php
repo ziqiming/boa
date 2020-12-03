@@ -2,7 +2,7 @@
 /*
 Author  : poetbi (poetbi@163.com)
 Document: http://boasoft.top/doc/#api/boa.database.driver.pdo.html
-Licenses: Apache-2.0 (http://apache.org/licenses/LICENSE-2.0)
+License : Apache-2.0 (http://apache.org/licenses/LICENSE-2.0)
 */
 namespace boa\database\driver;
 
@@ -116,22 +116,25 @@ class pdo{
 	}
 
 	public function stmt_bind($stmt, $para, $type = ''){
-		foreach($para as $i => $v){
+		$i = 0;
+		foreach($para as $k => $v){
+			$key = $k === $i ? $k+1 : ":$k";
 			if(is_array($v)){
 				if(count($v) > 2){
-					$stmt->bindParam($i+1, $v[0], $v[1], $v[2]);
+					$stmt->bindParam($key, $para[$k][0], $v[1], $v[2]);
 				}else{
-					$stmt->bindParam($i+1, $v[0], $v[1]);
+					$stmt->bindParam($key, $para[$k][0], $v[1]);
 				}
 			}else{
 				if($type){
 					$t = substr($type, $i, 1);
 					$t = $this->type[$t];
-					$stmt->bindParam($i+1, $v, $t);
+					$stmt->bindParam($key, $para[$k], $t);
 				}else{
-					$stmt->bindParam($i+1, $v);
+					$stmt->bindParam($key, $para[$k]);
 				}
 			}
+			$i++;
 		}
 	}
 

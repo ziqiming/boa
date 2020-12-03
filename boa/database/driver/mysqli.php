@@ -2,7 +2,7 @@
 /*
 Author  : poetbi (poetbi@163.com)
 Document: http://boasoft.top/doc/#api/boa.database.driver.mysqli.html
-Licenses: Apache-2.0 (http://apache.org/licenses/LICENSE-2.0)
+License : Apache-2.0 (http://apache.org/licenses/LICENSE-2.0)
 */
 namespace boa\database\driver;
 
@@ -124,8 +124,8 @@ class mysqli{
 
 	public function stmt_bind($stmt, $para, $type = ''){
 		foreach($para as $k => $v){
-			$para[$k] = &$v;
-		}		
+			$para[$k] = &$para[$k];
+		}
 		$num = count($para);
 		$type .= str_repeat('s', $num);
 		$type = substr($type, 0, $num);

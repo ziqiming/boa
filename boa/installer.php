@@ -10,8 +10,9 @@ class installer{
 	public function initlize($www = 'www', $mod = 'home'){
 		$file = boa::file();
 		$path = BS_BOA .'installer';
+		$local = PHP_SAPI != 'cli' && $_SERVER['SERVER_ADDR'] != '127.0.0.1' ? false : true;
 
-		if($www){
+		if($local && $www){
 			$dir = BS_ROOT . "var/$www";
 			$file->copy_dir("$path/var", $dir);
 			$file->chmod($dir, 0777);
@@ -21,7 +22,7 @@ class installer{
 			$file->chmod($dir, 0777);
 		}
 
-		if($mod){
+		if($local && $mod){
 			if($mod == 'boa'){
 				msg::set('boa.error.7', $mod);
 			}

@@ -8,6 +8,7 @@ namespace boa;
 
 class installer{
 	public function initlize($www = 'www', $mod = 'home'){
+		define('CHARSET', 'UTF-8');
 		$file = boa::file();
 		$path = BS_BOA .'installer';
 		$local = PHP_SAPI != 'cli' && $_SERVER['SERVER_ADDR'] != '127.0.0.1' ? false : true;

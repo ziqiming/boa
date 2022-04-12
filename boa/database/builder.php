@@ -124,12 +124,7 @@ class builder{
 		}
 		$this->data['values'] = '('. implode(', ', $values) .')';
 
-		$res = $this->exec_sql($db, $this->insert);
-		if($this->getsql){
-			return $res;
-		}else{
-			$res = $db->lastid();
-		}
+		return $this->exec_sql($db, $this->insert);
 	}
 
 	public function update($data, $db){

@@ -124,7 +124,11 @@ class builder{
 		}
 		$this->data['values'] = '('. implode(', ', $values) .')';
 
-		return $this->exec_sql($db, $this->insert);
+		$res = $this->exec_sql($db, $this->insert);
+		if(!$this->getsql && $res !== false){
+			$res = $db->lastid(); //for PDO
+		}
+		return $res;
 	}
 
 	public function update($data, $db){

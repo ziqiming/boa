@@ -64,6 +64,7 @@ class compiler{
 					$con = $sub[$max - 1] ? $sub[$max - 1] : boa::env('con');
 					$mod = $sub[$max - 2] ? $sub[$max - 2] : boa::env('mod');
 
+					$str = '';
 					$file = BS_WWW ."tpl/$mod/$con/$inc.html";
 					if(file_exists($file)){
 						$str = file_get_contents($file);

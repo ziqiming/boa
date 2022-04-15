@@ -39,6 +39,7 @@ class console{
 	public function __construct(){
 		require(BS_ROOT .'boa/boa.php');
 		boa::init();
+		ob_end_flush();
 		msg::set_type('cli');
 		$this->init();
 	}

@@ -250,12 +250,10 @@ class msg{
 	}
 
 	private static function format_log($log, $br = '<br>'){
-		$str = '';
 		if(is_array($log)){
-			$str = implode($br .' @', $log);
-		}
-		if($str){
-			$str = ' @'. $str;
+			$str = $br .'@'. implode($br .'@', $log);
+		}else{
+			$str = $br .'@'. $log;
 		}
 		return $str;
 	}

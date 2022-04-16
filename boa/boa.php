@@ -411,9 +411,10 @@ class boa{
 		if(!is_scalar($v)){
 			if(is_resource($v)){
 				$v = serialize($v);
+			}else{
+				$json = self::json();
+				$v = $json->encode($v, JSON_UNESCAPED_UNICODE);
 			}
-			$json = self::json();
-			$v = $json->encode($v, JSON_UNESCAPED_UNICODE);
 		}
 
 		$time = date(boa::lang('boa.locale.longtime'));

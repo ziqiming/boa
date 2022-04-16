@@ -409,6 +409,9 @@ class boa{
 
 	public static function debug($v, $k = '-'){
 		if(!is_scalar($v)){
+			if(is_resource($v)){
+				$v = serialize($v);
+			}
 			$json = self::json();
 			$v = $json->encode($v, JSON_UNESCAPED_UNICODE);
 		}

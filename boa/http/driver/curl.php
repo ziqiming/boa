@@ -16,11 +16,11 @@ class curl extends driver{
 		'proxy' => '',
 		'posttype' => 'form', //form, json, xml
 		'mimetype' => 'application/x-www-form-urlencoded',
-        'timeout_connect' => 15,
-        'timeout_execute' => 0,
-        'header' => [],
+        	'timeout_connect' => 15,
+        	'timeout_execute' => 0,
+        	'header' => [],
 		'option' => []
-    ];
+    	];
 	private $option = [];
 
     public function __construct($cfg){
@@ -92,12 +92,11 @@ class curl extends driver{
 			return false;
 		}
 
-		$arr = explode("\r\n\r\n", $response);
-		$max = count($arr) - 1;
-		$this->result['head'] = $arr[$max - 1];
-		$this->result['body'] = $arr[$max];
+		$arr = explode("\r\n\r\n", $response, 2);
+		$this->result['head'] = trim($arr[0]);
+		$this->result['body'] = $arr[1];
 
-		preg_match('/HTTP\/[0-2]\.[0-9]\s+(\d{3})\s+(.+?)[\r\n]/', $this->result['head'], $res);
+		preg_match('/^HTTP\/[\d\.]+ (\d{3})/', $this->result['head'], $res);
 		$this->result['code'] = $res[1];
 		if($res[1] != 200){
 			$this->result['msg'] = $res[2];

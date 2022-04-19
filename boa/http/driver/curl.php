@@ -16,19 +16,19 @@ class curl extends driver{
 		'proxy' => '',
 		'posttype' => 'form', //form, json, xml
 		'mimetype' => 'application/x-www-form-urlencoded',
-        	'timeout_connect' => 15,
-        	'timeout_execute' => 0,
-        	'header' => [],
+		'timeout_connect' => 15,
+		'timeout_execute' => 0,
+		'header' => [],
 		'option' => []
-    	];
+	];
 	private $option = [];
 
-    public function __construct($cfg){
+	public function __construct($cfg){
 		if(!function_exists('curl_exec')){
 			msg::set('boa.error.6', 'CURL');
 		}
 		parent::__construct($cfg);
-    }
+	}
 
 	public function set_cookie($cookie){
 		$this->cfg['option'][CURLOPT_COOKIE] = $cookie;

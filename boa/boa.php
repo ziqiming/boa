@@ -412,8 +412,8 @@ class boa{
 			if(is_resource($v)){
 				$v = serialize($v);
 			}else{
-				$json = self::json();
-				$v = $json->encode($v, JSON_UNESCAPED_UNICODE);
+				$json = self::json(['en_option' => JSON_UNESCAPED_UNICODE]);
+				$v = $json->encode($v);
 			}
 		}
 
@@ -441,7 +441,7 @@ class boa{
 			self::$obj[$key] = new $name($cfg);
 		}
 		return self::$obj[$key];
-    }
+	}
 
 	private static function type(){
 		$name = defined('MSG_TYPE_VAR') ? MSG_TYPE_VAR : '_msg';

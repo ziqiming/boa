@@ -128,9 +128,12 @@ class database{
 						break;
 
 					case $name == 'join':
-						$type = strtoupper($args[2]);
 						$table = $this->cfg['prefix'] . $args[0];
-						$this->builder->$name($table, $args[1], $type);
+						if($args[2]){
+							$this->builder->$name($table, $args[1], $args[2]);
+						}else{
+							$this->builder->$name($table, $args[1]);
+						}
 						break;
 
 					default:

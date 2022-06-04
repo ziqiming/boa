@@ -237,7 +237,7 @@ class view{
 			$cfile = BS_VAR ."view/$mod/$tpl.php";
 			if(
 				(defined('DEBUG') && DEBUG)
-				 || !file_exists($cfile)
+				 || ($cfile && !file_exists($cfile))
 				 || $mtime > filemtime($cfile)
 			){
 				$view = new \boa\view\compiler();

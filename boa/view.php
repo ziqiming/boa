@@ -7,7 +7,15 @@ Licenses: Apache-2.0 (http://apache.org/licenses/LICENSE-2.0)
 namespace boa;
 
 class view{
+	private $charset = 'UTF-8';
 	private $var = [];
+
+	public function __construct(){
+		$charset = boa::constant('CHARSET');
+		if($charset){
+			$this->charset = $charset;
+		}
+	}
 
 	public function assign($k, $v){
 		$this->var[$k] = $v;
@@ -35,7 +43,7 @@ class view{
 
 	public function json($data = [], $code = 0, $msg = 'OK', $return = false){
 		ob_clean();
-		header('Content-type: application/json;charset='. CHARSET);
+		header('Content-type: application/json;charset='. $this->charset);
 
 		extract($this->var);
 		$num = is_array($data) ? count($data) : -1;
@@ -70,7 +78,7 @@ class view{
 
 		$cfile = $this->cache_file($tpl);
 		if(file_exists($cfile)){
-			header('Content-type: text/html;charset='. CHARSET);
+			header('Content-type: text/html;charset='. $this->charset);
 			extract($this->var);
 			msg::set_type('str');
 			require($cfile);
@@ -86,7 +94,7 @@ class view{
 
 	public function xml($data = [], $code = 0, $msg = 'OK', $return = false){
 		ob_clean();
-		header('Content-type: application/xml;charset='. CHARSET);
+		header('Content-type: application/xml;charset='. $this->charset);
 
 		extract($this->var);
 		$num = is_array($data) ? count($data) : -1;
@@ -111,7 +119,7 @@ class view{
 
 	public function jsonp($callback, $data = [], $code = 0, $msg = 'OK', $return = false){
 		ob_clean();
-		header('Content-type: text/javascript;charset='. CHARSET);
+		header('Content-type: text/javascript;charset='. $this->charset);
 
 		extract($this->var);
 		$num = is_array($data) ? count($data) : -1;
@@ -132,11 +140,12 @@ class view{
 		}
 	}
 
-	public function jump($url, $sec = 0){
+	public function jump($url, $sec = 0, $tip = null){
 		ob_clean();
 		if($sec > 0){
 			$this->assign('url', $url);
 			$this->assign('sec', $sec);
+			$this->assign('tip', $tip);
 			$this->require_file('jump');
 		}else{
 			header("HTTP/1.1 302 Found");
@@ -200,7 +209,7 @@ class view{
 	}
 
 	private function require_file($name){
-		header('Content-type: text/html;charset='. CHARSET);
+		header('Content-type: text/html;charset='. $this->charset);
 		extract($this->var);
 		msg::set_type('str');
 		$tpl = "msg/$name";

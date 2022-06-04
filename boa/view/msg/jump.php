@@ -14,7 +14,13 @@ namespace boa;
 </head>
 <body>
 	<dl class="lost">
-		<dt><h3><?php echo boa::lang('boa.system.jump'); ?>(<span id="time"><?php echo $sec; ?></span>)</h3></dt>
+		<dt><h3>
+			<?php
+				if($tip) echo "$tip, ";
+				echo boa::lang('boa.system.jump');
+			?>
+			(<span id="time"><?php echo $sec; ?></span>)
+		</h3></dt>
 	</dl>
 <script type="text/javascript">
 	var time = document.getElementById("time");

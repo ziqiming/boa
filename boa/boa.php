@@ -232,6 +232,7 @@ class boa{
 		}
 
 		$config = BS_VAR .'config/config.php';
+
 		if(file_exists($config)){
 			$arr = include($config);
 			foreach($arr as $k => $v){
@@ -336,7 +337,6 @@ class boa{
 	}
 
 	private static function head(){
-		error_reporting(E_ALL & ~E_NOTICE);
 		header('X-Powered-By: BOA (http://boasoft.top)');
 
 		if(isset($_SERVER['HTTP_ORIGIN'])){

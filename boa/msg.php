@@ -9,7 +9,7 @@ namespace boa;
 class msg{
 	private static $auto = 1;
 	private static $type = 'msg'; //xml, json, str, msg, cli, jsonp
-	private static $display = 'php_exception,php_warning,php_error'; //php_notice,php_exception,php_warning,php_error,php_deprecated,php_strict
+	private static $display = 'php_exception,php_error'; //php_notice,php_exception,php_warning,php_error,php_deprecated,php_strict
 	private static $data = [];
 	private static $msg = [];
 
@@ -244,8 +244,6 @@ class msg{
 		$types = ','. str_replace(' ', '', $types) .',';
 		if(strpos($types, $type) !== false){
 			return true;
-		}else{
-			boa::view()->error();
 		}
 	}
 

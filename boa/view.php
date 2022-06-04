@@ -77,7 +77,7 @@ class view{
 		}
 
 		$cfile = $this->cache_file($tpl);
-		if(file_exists($cfile)){
+		if($cfile && file_exists($cfile)){
 			header('Content-type: text/html;charset='. $this->charset);
 			extract($this->var);
 			msg::set_type('str');
@@ -185,7 +185,7 @@ class view{
 
 	public function file($file, $name = ''){
 		ob_end_clean();
-		if(file_exists($file)){
+		if($file && file_exists($file)){
 			if(!$name){
 				$name = basename($file);
 			}
@@ -214,7 +214,7 @@ class view{
 		msg::set_type('str');
 		$tpl = "msg/$name";
 		$cfile = $this->cache_file($tpl, true);
-		if(file_exists($cfile)){
+		if($cfile && file_exists($cfile)){
 			require($cfile);
 		}else{
 			require(BS_BOA . "view/$tpl.php");
@@ -224,11 +224,11 @@ class view{
 	private function cache_file($tpl, $silence = false){
 		$mod = boa::env('mod');
 		$file = BS_WWW ."tpl/$mod/$tpl.html";
-		if(file_exists($file)){
+		if($file && file_exists($file)){
 			$mtime = filemtime($file);
 		}else{
 			$file = BS_MOD ."$mod/view/$tpl.html";
-			if(file_exists($file)){
+			if($file && file_exists($file)){
 				$mtime = filemtime($file);
 			}
 		}

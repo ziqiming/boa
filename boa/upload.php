@@ -1,7 +1,7 @@
 <?php
 /*
 Author  : poetbi (poetbi@163.com)
-Document: http://boasoft.top/doc/#api/boa.upload.html
+Document: http://boasoft.top/doc/api/boa.upload.html
 Licenses: Apache-2.0 (http://apache.org/licenses/LICENSE-2.0)
 */
 namespace boa;
@@ -183,7 +183,7 @@ class upload extends base{
 
 		$path = $this->cfg['path'] . $name;
 		$dir = dirname($path);
-		if(!file_exists($dir)){
+		if($dir && !file_exists($dir)){
 			mkdir($dir, 0755, true);
 		}
 

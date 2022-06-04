@@ -1,7 +1,7 @@
 <?php
 /*
 Author  : poetbi (poetbi@163.com)
-Document: http://boasoft.top/doc/#api/boa.view.html
+Document: http://boasoft.top/doc/api/boa.view.html
 Licenses: Apache-2.0 (http://apache.org/licenses/LICENSE-2.0)
 */
 namespace boa;
@@ -224,11 +224,11 @@ class view{
 	private function cache_file($tpl, $silence = false){
 		$mod = boa::env('mod');
 		$file = BS_WWW ."tpl/$mod/$tpl.html";
-		if($file && file_exists($file)){
+		if(file_exists($file)){
 			$mtime = filemtime($file);
 		}else{
 			$file = BS_MOD ."$mod/view/$tpl.html";
-			if($file && file_exists($file)){
+			if(file_exists($file)){
 				$mtime = filemtime($file);
 			}
 		}
@@ -237,7 +237,7 @@ class view{
 			$cfile = BS_VAR ."view/$mod/$tpl.php";
 			if(
 				(defined('DEBUG') && DEBUG)
-				 || ($cfile && !file_exists($cfile))
+				 || !file_exists($cfile)
 				 || $mtime > filemtime($cfile)
 			){
 				$view = new \boa\view\compiler();

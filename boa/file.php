@@ -1,7 +1,7 @@
 <?php
 /*
 Author  : poetbi (poetbi@163.com)
-Document: http://boasoft.top/doc/#api/boa.file.html
+Document: http://boasoft.top/doc/api/boa.file.html
 Licenses: Apache-2.0 (http://apache.org/licenses/LICENSE-2.0)
 */
 namespace boa;
@@ -25,7 +25,7 @@ class file extends base{
 
 	public function write($file, $str, $flag = 0){
 		$path = dirname($file);
-		if(!file_exists($path)){
+		if($path && !file_exists($path)){
 			mkdir($path, $this->cfg['mode'], true);
 		}
 		return file_put_contents($file, $str, $flag);
@@ -80,7 +80,7 @@ class file extends base{
 	}
 
 	public function read_dir($path, $type = 0){
-		if(!file_exists($path)){
+		if(!$path || !file_exists($path)){
 			return false;
 		}else{
 			$path = rtrim($path, '/');
@@ -118,7 +118,7 @@ class file extends base{
 	}
 
 	public function copy_dir($source, $dest, $override = false){
-		if(!file_exists($source)){
+		if(!$source || !file_exists($source)){
 			return false;
 		}else{
 			$source = rtrim($source, '/');
@@ -132,7 +132,7 @@ class file extends base{
 	}
 
 	public function clear_dir($path, $deldir = false){
-		if(!file_exists($path)){
+		if(!$path || !file_exists($path)){
 			return false;
 		}else{
 			$path = rtrim($path, '/');
@@ -144,7 +144,7 @@ class file extends base{
 	}
 
 	public function count_dir($path, $recursive = false){
-		if(!file_exists($path)){
+		if(!$path || !file_exists($path)){
 			return false;
 		}else{
 			$path = rtrim($path, '/');
@@ -165,7 +165,7 @@ class file extends base{
 	}
 
 	public function preg_replace_dir($path, $search, $repalce = '', $filter = null){
-		if(!file_exists($path)){
+		if(!$path || !file_exists($path)){
 			return false;
 		}else{
 			$path = rtrim($path, '/');

@@ -1,7 +1,7 @@
 <?php
 /*
 Author  : poetbi (poetbi@163.com)
-Document: http://boasoft.top/doc/#api/boa.msg.html
+Document: http://boasoft.top/doc/api/boa.msg.html
 Licenses: Apache-2.0 (http://apache.org/licenses/LICENSE-2.0)
 */
 namespace boa;
@@ -215,17 +215,24 @@ class msg{
 		$arr = [];
 		foreach($log as $k => $v){
 			$item = '';
-			if($v['file']){
-				$item .= self::filter_path($v['file']);
-			}
-			if($v['line']){
-				$item .= '['. $v['line'] .'] : ';
-			}
-			if($v['class']){
-				$item .= $v['class'] . $v['type'];
-			}
-			if($v['function']){
-				$item .= $v['function'] .'()';
+			foreach($v as $key){
+				switch($key){
+					case 'file':
+						$item .= self::filter_path($v['file']);
+						break;
+
+					case 'line':
+						$item .= '['. $v['line'] .'] : ';
+						break;
+
+					case 'class':
+						$item .= $v['class'] . $v['type'];
+						break;
+
+					case 'function':
+						$item .= $v['function'] .'()';
+						break;
+				}
 			}
 			$arr[$k] = $item;
 		}

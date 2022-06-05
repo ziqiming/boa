@@ -1,7 +1,7 @@
 <?php
 /*
 Author  : poetbi (poetbi@163.com)
-Document: http://boasoft.top/doc/#api/boa.boa.html
+Document: http://boasoft.top/doc/api/boa.boa.html
 Licenses: Apache-2.0 (http://apache.org/licenses/LICENSE-2.0)
 */
 namespace boa;
@@ -122,21 +122,27 @@ class boa{
 				break;
 
 			case $v === null:
-				list($top, $sub) = explode('.', $k, 2);
-				$v = $env[$top];
-				if($sub){
-					$v = $v[$sub];
+				$arr = explode('.', $k);
+				foreach($arr as $key){
+					$env = $env[$key];
 				}
-				return $v;
+				return $env;
 				break;
 
 			default:
-				list($top, $sub) = explode('.', $k, 2);
-				if($sub){
-					self::$env[0][$top][$sub] = $v;
-				}else{
-					self::$env[0][$k] = $v;
+				$new = [];
+				$arr = explode('.', $k);
+				$max = count($arr) - 1;
+				for($i = $max; $i >= 0; $i--){
+					$key = $arr[$i];
+					if($i == $max){
+						$new[$key] = $v;
+					}else{
+						$new[$key] = $new;
+						unset($new[$arr[$i+1]]);
+					}
 				}
+				self::$env[0] = $new;
 		}
 	}
 
@@ -433,7 +439,7 @@ class boa{
 			$cfg = self::merge(constant($mod_const), $cfg);
 		}
 		$key = $name . self::arr2key($cfg);
-		if(!self::$obj[$key]){
+		if(!array_key_exists($key, self::$obj)){
 			if(defined($const)){
 				$cfg = self::merge(constant($const), $cfg);
 			}

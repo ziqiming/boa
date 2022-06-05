@@ -310,5 +310,6 @@ class file extends base{
 			return false;
 		}
 		return true;
-	}}
+	}
+}
 ?>

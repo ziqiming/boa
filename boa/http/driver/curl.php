@@ -1,7 +1,7 @@
 <?php
 /*
 Author  : poetbi (poetbi@163.com)
-Document: http://boasoft.top/doc/#api/boa.http.driver.curl.html
+Document: http://boasoft.top/doc/api/boa.http.driver.curl.html
 Licenses: Apache-2.0 (http://apache.org/licenses/LICENSE-2.0)
 */
 namespace boa\http\driver;
@@ -92,6 +92,7 @@ class curl extends driver{
 			return false;
 		}
 
+		$response = preg_replace('/^HTTP\/([\S\s]+)HTTP/', 'HTTP', $response);
 		$arr = explode("\r\n\r\n", $response, 2);
 		$this->result['head'] = trim($arr[0]);
 		$this->result['body'] = $arr[1];

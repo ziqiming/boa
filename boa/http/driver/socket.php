@@ -1,7 +1,7 @@
 <?php
 /*
 Author  : poetbi (poetbi@163.com)
-Document: http://boasoft.top/doc/#api/boa.http.driver.socket.html
+Document: http://boasoft.top/doc/api/boa.http.driver.socket.html
 Licenses: Apache-2.0 (http://apache.org/licenses/LICENSE-2.0)
 */
 namespace boa\http\driver;
@@ -17,18 +17,18 @@ class socket extends driver{
 		'posttype' => 'form', //form, json, xml
 		'mimetype' => 'application/x-www-form-urlencoded',
 		'persist' => false,
-        'timeout_connect' => 15,
-        'timeout_execute' => 0,
-        'header' => []
-    ];
+		'timeout_connect' => 15,
+		'timeout_execute' => 0,
+		'header' => []
+	];
 	private $host = null;
 	private $port = -1;
 	private $fp = null;
 	private $boundary = null;
 
-    public function __construct($cfg){
-        parent::__construct($cfg);
-    }
+	public function __construct($cfg){
+		parent::__construct($cfg);
+	}
 	
 	public function set_cookie($cookie){
 		$this->cfg['header']['Cookie'] = $cookie;
@@ -106,6 +106,7 @@ class socket extends driver{
 			return false;
 		}
 
+		$response = preg_replace('/^HTTP\/([\S\s]+)HTTP/', 'HTTP', $response);
 		$pos = strpos($response, "\r\n\r\n");
 		$this->result['head'] = substr($response, 0, $pos);
 		$this->result['body'] = substr($response, $pos + 4);

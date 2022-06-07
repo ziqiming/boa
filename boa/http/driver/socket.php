@@ -106,7 +106,7 @@ class socket extends driver{
 			return false;
 		}
 
-		$response = preg_replace('/^HTTP\/([\S\s]+)HTTP/', 'HTTP', $response);
+		$response = preg_replace('/^HTTP\/([\.\w ]+?)[\t\r\n]+HTTP/', 'HTTP', $response);
 		$pos = strpos($response, "\r\n\r\n");
 		$this->result['head'] = substr($response, 0, $pos);
 		$this->result['body'] = substr($response, $pos + 4);

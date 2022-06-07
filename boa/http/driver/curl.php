@@ -92,7 +92,7 @@ class curl extends driver{
 			return false;
 		}
 
-		$response = preg_replace('/^HTTP\/([\S\s]+)HTTP/', 'HTTP', $response);
+		$response = preg_replace('/^HTTP\/([\.\w ]+?)[\t\r\n]+HTTP/', 'HTTP', $response);
 		$arr = explode("\r\n\r\n", $response, 2);
 		$this->result['head'] = trim($arr[0]);
 		$this->result['body'] = $arr[1];

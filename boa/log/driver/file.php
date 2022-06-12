@@ -1,7 +1,7 @@
 <?php
 /*
 Author  : poetbi (poetbi@163.com)
-Document: http://boasoft.top/doc/#api/boa.log.driver.file.html
+Document: http://boasoft.top/doc/api/boa.log.driver.file.html
 Licenses: Apache-2.0 (http://apache.org/licenses/LICENSE-2.0)
 */
 namespace boa\log\driver;
@@ -13,10 +13,10 @@ class file extends driver{
 	protected $cfg = [
 		'timeline' => false,
 		'file' => '%Y%m/%d.log'
-    ];
+	];
 
 	public function __construct($cfg){
-        parent::__construct($cfg);
+		parent::__construct($cfg);
 
 		$this->cfg['file'] = BS_VAR .'log/'. $this->format($this->cfg['file']);
 	}
@@ -52,7 +52,7 @@ class file extends driver{
 			$file = str_replace("%$v", $val[$k], $file);
 		}
 
-		if(strpos(PHP_SAPI, 'cli') !== false){
+		if(PHP_SAPI == 'cli'){
 			$file = preg_replace('/\.log$/i', '.cli.log', $file);
 		}
 

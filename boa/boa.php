@@ -36,7 +36,9 @@ class boa{
 		register_shutdown_function(['\\boa\\boa', 'finish']);
 
 		ob_start();
-		self::head();
+		if(PHP_SAPI != 'cli'){
+			self::head();
+		}
 		self::conf();
 
 		if(!file_exists(BS_MOD)){
@@ -222,12 +224,7 @@ class boa{
 	}
 
 	public static function db($new = []){
-		$key = 'database'. self::arr2key($new);
-		if(!self::$obj[$key]){
-			$cfg = self::merge(DATABASE, $new);
-			self::$obj[$key] = new database($cfg);
-		}
-		return self::$obj[$key];
+		return self::__callStatic('database', $new);
 	}
 
 	private static function conf(){

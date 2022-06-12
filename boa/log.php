@@ -1,7 +1,7 @@
 <?php
 /*
 Author  : poetbi (poetbi@163.com)
-Document: http://boasoft.top/doc/#api/boa.log.html
+Document: http://boasoft.top/doc/api/boa.log.html
 Licenses: Apache-2.0 (http://apache.org/licenses/LICENSE-2.0)
 */
 namespace boa;
@@ -10,13 +10,13 @@ class log{
 	private $cfg = [
 		'enable' => false,
 		'driver' => 'file',
-        'type' => 'error,php_exception,php_error' //info,error,header,php_notice,php_warning,php_error,php_deprecated,php_strict,php_exception
-    ];
+		'type' => 'error,php_exception,php_error' //info,error,header,php_notice,php_warning,php_error,php_deprecated,php_strict,php_exception
+	];
 	private $obj;
 	private $log = [];
 
 	public function __construct($cfg = []){
-		if(!$cfg['enable']){
+		if($cfg && !$cfg['enable']){
 			return false;
 		}
 
@@ -86,7 +86,7 @@ class log{
 			$info['use_mem'] = round(($arr['mem_end'] - $arr['mem_start']) / 1024, 2);
 			$info['use_time'] = round($arr['time_end'] - $arr['time_start'], 4);
 
-			if(strpos(PHP_SAPI, 'cli') === false){
+			if(PHP_SAPI != 'cli'){
 				if(strpos($this->cfg['type'], ',header,') !== false){
 					array_unshift($this->log, [
 						'time' => $arr['time_start'],

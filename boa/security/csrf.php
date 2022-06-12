@@ -1,7 +1,7 @@
 <?php
 /*
 Author  : poetbi (poetbi@163.com)
-Document: http://boasoft.top/doc/#api/boa.security.csrf.html
+Document: http://boasoft.top/doc/api/boa.security.csrf.html
 Licenses: Apache-2.0 (http://apache.org/licenses/LICENSE-2.0)
 */
 namespace boa\security;
@@ -32,11 +32,11 @@ class csrf extends base{
 			}
 		}
 
-        return $token;
-    }
+		return $token;
+	}
 
-    public function check(){
-		if($this->cfg['type'] <= 0 || strpos(PHP_SAPI, 'cli') !== false){
+	public function check(){
+		if($this->cfg['type'] <= 0 || PHP_SAPI == 'cli'){
 			return true;
 		}
 
@@ -67,18 +67,18 @@ class csrf extends base{
 			$this->obj()->del($this->cfg['key']);
 		}
 		return $res;
-    }
+	}
 
 	public function validate(){
 		$res = $this->check();
 		if(!$res){
 			msg::set('boa.error.23', 'csrf');
 		}
-    }
+	}
 
 	public function delete(){
 		$this->obj()->del($this->cfg['key']);
-    }
+	}
 
 	private function generate($time){
 		$agent = $_SERVER['HTTP_USER_AGENT'];

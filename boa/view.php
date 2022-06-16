@@ -63,7 +63,7 @@ class view{
 		}
 	}
 
-	public function page($page, $number = 5, $first = true, $last = true, $prev = false, $next = false){
+	public function page($page, $number = 10, $first = true, $last = true, $prev = false, $next = false){
 		$obj = new \boa\view\page();
 		$str = $obj->get($page, $number, $first, $last, $prev, $next);
 		return $str;

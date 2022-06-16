@@ -8,6 +8,7 @@ namespace boa;
 
 class view{
 	private $charset = 'UTF-8';
+	private $remain = ['cfile', 'name', 'return'];
 	private $var = [];
 
 	public function __construct(){
@@ -18,7 +19,12 @@ class view{
 	}
 
 	public function assign($k, $v){
-		$this->var[$k] = $v;
+		if(in_array($k, $this->remain)){
+			msg.set('boa.error.8', $k);
+		}else{
+			$act = boa::env('act');
+			$this->var[$act][$k] = $v;
+		}
 	}
 
 	public function cli($str, $clean = true, $exit = true){
@@ -45,7 +51,6 @@ class view{
 		ob_clean();
 		header('Content-type: application/json;charset='. $this->charset);
 
-		extract($this->var);
 		$num = is_array($data) ? count($data) : -1;
 		$arr = [
 			'code' => $code,
@@ -79,7 +84,9 @@ class view{
 		$cfile = $this->cache_file($tpl);
 		if($cfile && file_exists($cfile)){
 			header('Content-type: text/html;charset='. $this->charset);
-			extract($this->var);
+
+			$act = boa::env('act');
+			extract($this->var[$act]);
 			msg::set_type('str');
 			require($cfile);
 			if($return){
@@ -96,7 +103,6 @@ class view{
 		ob_clean();
 		header('Content-type: application/xml;charset='. $this->charset);
 
-		extract($this->var);
 		$num = is_array($data) ? count($data) : -1;
 		$root = defined('VIEW_XML_ROOT') ? VIEW_XML_ROOT : 'boa';
 		$arr = [
@@ -121,7 +127,6 @@ class view{
 		ob_clean();
 		header('Content-type: text/javascript;charset='. $this->charset);
 
-		extract($this->var);
 		$num = is_array($data) ? count($data) : -1;
 		$arr = [
 			'code' => $code,
@@ -210,7 +215,9 @@ class view{
 
 	private function require_file($name){
 		header('Content-type: text/html;charset='. $this->charset);
-		extract($this->var);
+
+		$act = boa::env('act');
+		extract($this->var[$act]);
 		msg::set_type('str');
 		$tpl = "msg/$name";
 		$cfile = $this->cache_file($tpl, true);

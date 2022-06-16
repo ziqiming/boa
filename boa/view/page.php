@@ -31,6 +31,9 @@ class page extends base{
 		if($page['current'] < 1){
 			$page['current'] = 1;
 		}
+		if($page['pages'] < 1){
+			$page['pages'] = 1;
+		}
 		if($page['current'] > $page['pages']){
 			$page['current'] = $page['pages'];
 		}

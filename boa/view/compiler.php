@@ -1,7 +1,7 @@
 <?php
 /*
 Author  : poetbi (poetbi@163.com)
-Document: http://boasoft.top/doc/#api/boa.view.compiler.html
+Document: http://boasoft.top/doc/api/boa.view.compiler.html
 Licenses: Apache-2.0 (http://apache.org/licenses/LICENSE-2.0)
 */
 namespace boa\view;
@@ -82,7 +82,7 @@ class compiler{
 					}
 				}
 			}
-		}while($num && $depth < 5);
+		}while($num && $depth < 10);
 	}
 
 	private function reverse(){

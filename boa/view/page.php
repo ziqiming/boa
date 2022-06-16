@@ -1,7 +1,7 @@
 <?php
 /*
 Author  : poetbi (poetbi@163.com)
-Document: http://boasoft.top/doc/#api/boa.view.page.html
+Document: http://boasoft.top/doc/api/boa.view.page.html
 Licenses: Apache-2.0 (http://apache.org/licenses/LICENSE-2.0)
 */
 namespace boa\view;
@@ -27,35 +27,12 @@ class page extends base{
 		parent::__construct($cfg);
 	}
 
-	public function get($page, $number = 5, $first = true, $last = true, $prev = false, $next = false){
+	public function get($page, $number = 10, $first = true, $last = true, $prev = false, $next = false){
 		if($page['current'] < 1){
 			$page['current'] = 1;
 		}
 		if($page['current'] > $page['pages']){
 			$page['current'] = $page['pages'];
-		}
-
-		switch(true){
-			case $page['current'] == 1:
-				$first = false;
-				$prev = false;
-				$next = $next && true;
-				$last = $last && true;
-				break;
-
-			case $page['current'] > 1 && $page['current'] < $page['pages']:
-				$first = $first && true;
-				$prev = $prev && true;
-				$next = $next && true;
-				$last = $last && true;
-				break;
-
-			case $page['current'] == $page['pages']:
-				$first = $first && true;
-				$prev = $prev && true;
-				$next = false;
-				$last = false;
-				break;
 		}
 
 		$str = '';
@@ -70,18 +47,20 @@ class page extends base{
 		}
 
 		if($prev){
-			$var['page'] = $page['current'] - 1;
+			$var['page'] = $page['current'] > 1 ? $page['current'] - 1 : 1;
 			$url = $router->url($act, $var);
 			$str .= $this->tpl('first', boa::lang('boa.system.page_prev'), $url);
 		}
 
-		if($number > 0){
-			$min = $page['current'] - $number;
-			$max = $page['current'] + $number;
-			$page_min = $min <= 0 ? 1 : $min;
-			$page_max = $max <= $page['pages'] ? $max : $page['pages'];
+		if($number > 1){
+			$half = floor($number / 2);
+			$min = max(1, $page['current'] - $half);
+			$max = min($page['pages'], $min + $number - 1);
+			if($max - $min < $number){
+				$min = max(1, $max - $number + 1);
+			}
 
-			for($i = $page_min; $i <= $page_max; $i++){
+			for($i = $min; $i <= $max; $i++){
 				if($i == $page['current']){
 					$str .= $this->tpl('current', $i);
 				}else{
@@ -95,7 +74,7 @@ class page extends base{
 		}
 
 		if($next){
-			$var['page'] = $page['current'] + 1;
+			$var['page'] = $page['current'] < $page['pages'] ? $page['current'] + 1 : $page['pages'];
 			$url = $router->url($act, $var);
 			$str .= $this->tpl('next', boa::lang('boa.system.page_next'), $url);
 		}

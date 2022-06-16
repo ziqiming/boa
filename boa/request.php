@@ -1,7 +1,7 @@
 <?php
 /*
 Author  : poetbi (poetbi@163.com)
-Document: http://boasoft.top/doc/#api/boa.request.html
+Document: http://boasoft.top/doc/api/boa.request.html
 Licenses: Apache-2.0 (http://apache.org/licenses/LICENSE-2.0)
 */
 namespace boa;
@@ -38,7 +38,8 @@ class request{
 	}
 	
 	public function v($key){
-		if(array_key_exists($key, $this->var)){
+		$call = boa::info('call');
+		if($call == 1 && array_key_exists($key, $this->var)){
 			return $this->var[$key];
 		}
 

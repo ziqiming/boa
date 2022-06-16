@@ -86,6 +86,7 @@ class boa{
 			array_unshift(self::$env, $env);
 		}
 
+		self::$info['call']++;
 		self::mod(self::env('mod'));
 		$act = self::env('act');
 		$con = self::con();
@@ -117,7 +118,7 @@ class boa{
 	}
 
 	public static function env($k = null, $v = null){
-		$env = array_merge(end(self::$env), self::$env[0]);
+		$env = current(self::$env);
 		switch(true){
 			case $k === null && $v === null:
 				return $env;

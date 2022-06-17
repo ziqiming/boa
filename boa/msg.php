@@ -212,31 +212,23 @@ class msg{
 	}
 
 	private static function handle_log($log){
-		$arr = [];
 		foreach($log as $k => $v){
 			$item = '';
-			foreach($v as $key){
-				switch($key){
-					case 'file':
-						$item .= self::filter_path($v['file']);
-						break;
-
-					case 'line':
-						$item .= '['. $v['line'] .'] : ';
-						break;
-
-					case 'class':
-						$item .= $v['class'] . $v['type'];
-						break;
-
-					case 'function':
-						$item .= $v['function'] .'()';
-						break;
-				}
+			if(array_key_exists('file', $v)){
+				$item .= self::filter_path($v['file']);
 			}
-			$arr[$k] = $item;
+			if(array_key_exists('line', $v)){
+				$item .= '['. $v['line'] .'] : ';
+			}
+			if(array_key_exists('class', $v)){
+				$item .= $v['class'] . $v['type'];
+			}
+			if(array_key_exists('function', $v)){
+				$item .= $v['function'] .'()';
+			}
+			$log[$k] = $item;
 		}
-		return $arr;
+		return $log;
 	}
 
 	private static function filter_path($str, $start = true){

@@ -182,7 +182,7 @@ class file extends base{
 			if(strpos($path, $this->cfg['safe_path']) === 0){
 				return $path;
 			}else{
-				msg.set('boa.error.51', $path);
+				msg::set('boa.error.51', $path);
 			}
 		}else{
 			return $path;

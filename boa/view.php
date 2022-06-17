@@ -8,7 +8,7 @@ namespace boa;
 
 class view{
 	private $charset = 'UTF-8';
-	private $remain = ['cfile', 'name', 'return'];
+	private $remain = ['__file', '__name', 'return'];
 	private $var = [];
 
 	public function __construct(){
@@ -20,7 +20,7 @@ class view{
 
 	public function assign($k, $v){
 		if(in_array($k, $this->remain)){
-			msg.set('boa.error.8', $k);
+			msg::set('boa.error.8', $k);
 		}else{
 			$act = boa::env('act');
 			$this->var[$act][$k] = $v;
@@ -81,21 +81,24 @@ class view{
 			$tpl = "$con/$act";
 		}
 
-		$cfile = $this->cache_file($tpl);
-		if($cfile && file_exists($cfile)){
+		$__file = $this->cache_file($tpl);
+		if($__file && file_exists($__file)){
 			header('Content-type: text/html;charset='. $this->charset);
 
 			$act = boa::env('act');
-			extract($this->var[$act]);
+			if($this->var[$act]){
+				extract($this->var[$act]);
+			}
+
 			msg::set_type('str');
-			require($cfile);
+			require($__file);
 			if($return){
 				$html = ob_get_contents();
 				ob_end_clean();
 				return $html;
 			}
 		}else{
-			msg::set('boa.error.2', $cfile);
+			msg::set('boa.error.2', $__file);
 		}
 	}
 
@@ -213,16 +216,19 @@ class view{
 		}
 	}
 
-	private function require_file($name){
+	private function require_file($__name){
 		header('Content-type: text/html;charset='. $this->charset);
 
 		$act = boa::env('act');
-		extract($this->var[$act]);
+		if($this->var[$act]){
+			extract($this->var[$act]);
+		}
+
 		msg::set_type('str');
-		$tpl = "msg/$name";
-		$cfile = $this->cache_file($tpl, true);
-		if($cfile && file_exists($cfile)){
-			require($cfile);
+		$tpl = "msg/$__name";
+		$__file = $this->cache_file($tpl, true);
+		if($__file && file_exists($__file)){
+			require($__file);
 		}else{
 			require(BS_BOA . "view/$tpl.php");
 		}
@@ -241,22 +247,22 @@ class view{
 		}
 
 		if($mtime > 0){
-			$cfile = BS_VAR ."view/$mod/$tpl.php";
+			$__file = BS_VAR ."view/$mod/$tpl.php";
 			if(
 				(defined('DEBUG') && DEBUG)
-				 || !file_exists($cfile)
-				 || $mtime > filemtime($cfile)
+				 || !file_exists($__file)
+				 || $mtime > filemtime($__file)
 			){
 				$view = new \boa\view\compiler();
-				$view->file($file, $cfile);
+				$view->file($file, $__file);
 			}
 		}else{
 			if(!$silence){
 				msg::set('boa.error.2', BS_WWW ."tpl/$mod/$tpl.html");
 			}
-			$cfile = null;
+			$__file = null;
 		}
-		return $cfile;
+		return $__file;
 	}
 }
 ?>

@@ -1,7 +1,7 @@
 <?php
 /*
 Author  : poetbi (poetbi@163.com)
-Document: http://boasoft.top/doc/#api/boa.util.html
+Document: http://boasoft.top/doc/api/boa.util.html
 Licenses: Apache-2.0 (http://apache.org/licenses/LICENSE-2.0)
 */
 namespace boa;
@@ -35,21 +35,21 @@ class util{
 				return $n;
 			}
 		}
-		
+
 		if(function_exists('iconv_strlen')){
 			$n = iconv_strlen($str, $charset);
 			if($n !== false){
 				return $n;
 			}
 		}
-		
+
 		$n = 0;
 		$p = 0;
 		$c = '';
 		$len = strlen($str);
 		if($charset == 'UTF-8'){
 			for($i = 0; $i < $len; $i++){
-				$c = ord($str{$i});
+				$c = ord($str[$i]);
 				if($c > 252){
 					$p = 5;
 				}elseif($c > 248){
@@ -68,7 +68,7 @@ class util{
 			}
 		}else{
 			for($i = 0; $i < $len; $i++){
-				$c = ord($str{$i});
+				$c = ord($str[$i]);
 				if($c > 127){
 					$p = 1;
 				}else{

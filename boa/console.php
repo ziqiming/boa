@@ -20,7 +20,7 @@ class console{
 		'QUERY_STRING' => '',
 		'PATH_INFO' => '',
 		'HTTP_COOKIE' => '', //PHPSESSID=xxx; test=1
-		'HTTP_USER_AGENT' => 'Mozilla/5.0 (Console) boa/5.0'
+		'HTTP_USER_AGENT' => 'Console boa/5.2'
 	];
 
 	private $cmd = [
@@ -132,10 +132,7 @@ class console{
 		$this->out->printl('php boa [command] [arguments]', 2);
 
 		foreach($this->cmd as $k => $v){
-			$row = [
-				"-$k, ", "$v ", boa::lang("boa.console.$v")
-			];
-			$arr[] = $row;
+			$arr[] = ["-$k, ", "$v ", boa::lang("boa.console.$v")];
 		}
 		$this->out->table($arr);
 	}

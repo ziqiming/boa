@@ -71,12 +71,19 @@ class boa{
 
 	public static function call($key = null, $var = []){
 		if($key){
-			$arr = explode('.', $key);
+			$arr = explode('.', "..$key");
+			$max = count($arr);
 			$env = [
-				'mod'  => $arr[0],
-				'con'  => $arr[1],
-				'act'  => $arr[2]
+				'mod'  => $arr[$max - 3],
+				'con'  => $arr[$max - 2],
+				'act'  => $arr[$max - 1]
 			];
+			if(!$env['con']){
+				$env['con'] = self::env('con');
+			}
+			if(!$env['mod']){
+				$env['mod'] = self::env('mod');
+			}
 			if($var){
 				$env['var'] = $var;
 			}

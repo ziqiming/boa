@@ -2,7 +2,7 @@
 return [
 	'error' => 'Error',
 	'info' => 'Info',
-	'e400' => 'HTTP 404 Page not found',
+	'e404' => 'HTTP 404 Page not found',
 	'e500' => 'HTTP 500 Internal error',
 	'jump' => 'Page redirecting...',
 	'join_or' => ' or ',

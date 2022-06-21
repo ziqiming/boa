@@ -8,6 +8,7 @@ return [
 	6 => "PHP doesn't support %0",
 	7 => "Module name can't be %0",
 	8 => "%0 is a system variable",
+	9 => "Failed to verify the signature of WebSocket connection",
 
 	21 => 'No permission (%0)',
 	22 => 'Disallowed request origin (%0)',

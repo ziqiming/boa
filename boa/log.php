@@ -10,7 +10,7 @@ class log{
 	private $cfg = [
 		'enable' => false,
 		'driver' => 'file',
-		'type' => 'error,php_exception,php_error' //info,error,header,php_notice,php_warning,php_error,php_deprecated,php_strict,php_exception
+		'type' => 'error,php_exception,php_error' //info,error,header,php_warning,php_error,php_deprecated,php_strict,php_exception
 	];
 	private $obj;
 	private $log = [];

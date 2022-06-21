@@ -1,7 +1,7 @@
 <?php
 /*
 Author  : poetbi (poetbi@163.com)
-Document: http://boasoft.top/doc/#api/boa.database.builder.html
+Document: http://boasoft.top/doc/api/boa.database.builder.html
 Licenses: Apache-2.0 (http://apache.org/licenses/LICENSE-2.0)
 */
 namespace boa\database;
@@ -10,10 +10,10 @@ use boa\boa;
 use boa\msg;
 
 class builder{
-    private $select = 'SELECT %distinct%%field% FROM %table%%force%%join%%where%%group%%having%%order%%limit%%union%%lock%';
-    private $insert = 'INSERT INTO %table%%fields% VALUES %values%';
-    private $update = 'UPDATE %table% SET %fields%%where%';
-    private $delete = 'DELETE FROM %table%%where%';
+	private $select = 'SELECT %distinct%%field% FROM %table%%force%%join%%where%%group%%having%%order%%limit%%union%%lock%';
+	private $insert = 'INSERT INTO %table%%fields% VALUES %values%';
+	private $update = 'UPDATE %table% SET %fields%%where%';
+	private $delete = 'DELETE FROM %table%%where%';
 	private $data = [];
 	private $getsql = false;
 	private $error = null;
@@ -125,7 +125,7 @@ class builder{
 		$this->data['values'] = '('. implode(', ', $values) .')';
 
 		$res = $this->exec_sql($db, $this->insert);
-		if(!$this->getsql && $res !== false){
+		if(!$this->getsql && $res !== false && $res < 1){
 			$res = $db->lastid(); //for PDO
 		}
 		return $res;

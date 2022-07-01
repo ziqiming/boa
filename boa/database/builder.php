@@ -125,8 +125,11 @@ class builder{
 		$this->data['values'] = '('. implode(', ', $values) .')';
 
 		$res = $this->exec_sql($db, $this->insert);
-		if(!$this->getsql && $res !== false && $res < 1){
-			$res = $db->lastid(); //for PDO
+		if(!$this->getsql && $res !== false){
+			$cls = new \ReflectionClass($db);
+			if(strpos($cls->name, 'pdo') > 0){
+				$res = $db->lastid(); //for PDO
+			}
 		}
 		return $res;
 	}

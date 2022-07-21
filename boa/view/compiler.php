@@ -48,7 +48,7 @@ class compiler{
 				$session = 'boa::session();';
 			}
 		}
-		$this->html = '<?php use \\boa\\boa;'. $session .' ?>'. $this->html;
+		$this->html = '<?php use \\boa\\boa;'. $session .'$_ENV=boa::env(); ?>'. $this->html;
 	}
 
 	private function prepare(){

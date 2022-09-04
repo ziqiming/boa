@@ -23,7 +23,7 @@ class boa{
 	private static $mod = [];
 	private static $con = [];
 	private static $lang = [];
-	private static $cache_is_up = 0;
+	private static $cache = 0;
 	private static $save;
 
 	public static function init(){
@@ -166,7 +166,7 @@ class boa{
 	}
 
 	public static function cache_on(){
-		self::$cache_is_up = 1;
+		self::$cache = 1;
 	}
 
 	public static function lang(){
@@ -177,7 +177,7 @@ class boa{
 		$arr = explode('.', $key);
 		$k = "$lng.{$arr[0]}.{$arr[1]}";
 
-		if(self::$cache_is_up){
+		if(self::$cache){
 			$lang = self::cache()->get('language', [
 				'mod' => $arr[0],
 				'file' => $arr[1],

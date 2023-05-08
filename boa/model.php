@@ -24,8 +24,8 @@ class model extends base{
 		return $this->db->table($this->cfg['table'])->where($this->cfg['prikey'] .' = ?', $id)->find();
 	}
 
-	public function list($pagesize = 0){
-		$page = boa:env('var.page');
+	public function data($pagesize = 0){
+		$page = boa::env('var.page');
 		if($pagesize <= 0){
 			$pagesize = $this->cfg['pagesize'];
 		}
